@@ -9,6 +9,8 @@ jobs:
   run-agent:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -33,7 +35,7 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           # The agent script will be executed here in future phases
-          python src/main.py
+          python -m src.main
           
       - name: Alert on Failure
         if: failure()
